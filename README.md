@@ -9,6 +9,7 @@
 
 <p align="center">
   <img src="https://img.icons8.com/color/96/000000/weixing.png" width="80" alt="Chat App Icon"/>
+  <br>
 </p>
 
 <h2 align="center">A modern, WhatsApp-like real-time chat app built with Django & Channels</h2>
