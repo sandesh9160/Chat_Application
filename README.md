@@ -92,7 +92,7 @@
 
 ```bash
 # 1️⃣ Clone the repository
-git clone https://github.com/yourusername/django_chat.git
+git clone https://github.com/sandesh9160/Chat_Application.git
 cd django_chat
 
 # 2️⃣ Create virtual environment
