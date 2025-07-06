@@ -73,6 +73,12 @@
 
 </div>
 
+<p align="center">
+  <!-- Replace with your own GIF or screenshot -->
+  <img src="https://res.cloudinary.com/ddvru0ow1/image/upload/f_auto,q_auto/Screenshot_2025-07-06_122310_tprxgh" width="600" alt="Chat Demo"/>
+  <img src="https://res.cloudinary.com/ddvru0ow1/image/upload/v1751811835/Screenshot_2025-07-06_115722_ldwvhs.png" width="600" alt="Chat Demo"/>
+</p>
+
 ---
 
 ## 🚀 **Quick Start**
@@ -345,4 +351,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 [![Twitter](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/yourusername)
 [![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/yourusername)
 
-</div> 
+</div>
