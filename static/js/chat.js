@@ -174,11 +174,9 @@ function addMessage(data) {
         
         if (fileUrl.endsWith('.pdf')) {
             attachmentHtml = `
-                <div class="attachment-container" style="display: flex; flex-direction: column; align-items: flex-start; gap: 4px;">
-                    <a href="/attachment_preview/${data.id}/" class="attachment-preview-wrapper" style="text-decoration: none; color: inherit;">
-                        <iframe src="${fileUrl}" width="200" height="250" style="border:1px solid #ccc; border-radius:5px;"></iframe>
-                    </a>
-                </div>`;
+                <a href="/attachment_preview/${data.id}/" class="attachment-preview-wrapper" style="text-decoration: none; color: inherit; display: block;">
+                    <iframe src="${fileUrl}" width="100%" height="250" style="border:1px solid #ccc; border-radius:5px; pointer-events: none; display: block;"></iframe>
+                </a>`;
         } else {
             attachmentHtml = `
                 <div class="attachment-container" style="display: flex; flex-direction: column; align-items: flex-start; gap: 4px;">
