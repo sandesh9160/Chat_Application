@@ -32,7 +32,7 @@
 
 <p align="center">
   <!-- Replace with your own GIF or screenshot -->
-  <img src="https://user-images.githubusercontent.com/placeholder/demo.gif" width="600" alt="Chat Demo"/>
+  <img src="https://res.cloudinary.com/ddvru0ow1/image/upload/f_auto,q_auto/Screenshot_2025-07-06_122310_tprxgh" width="600" alt="Chat Demo"/>
 </p>
 
 ---
