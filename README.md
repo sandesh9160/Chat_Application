@@ -46,10 +46,12 @@
 <div align="center">
 
 ### 📱 **Main Chat Interface**
-![Chat Interface](https://via.placeholder.com/800x400/4CAF50/white?text=Chat+Interface+Demo)
+![Chat Interface]
+  <img src="https://res.cloudinary.com/ddvru0ow1/image/upload/f_auto,q_auto/Screenshot_2025-07-06_122310_tprxgh" width="600" alt="Chat Demo"/>
 
 ### 📎 **File Sharing & Preview**
-![File Preview](https://via.placeholder.com/800x400/2196F3/white?text=File+Preview+Demo)
+![File Preview](<img src="https://res.cloudinary.com/ddvru0ow1/image/upload/v1751811835/Screenshot_2025-07-06_115722_ldwvhs.png" width="600" alt="Chat Demo"/>
+</p>))
 
 ### 🧵 **Reply Threading**
 ![Reply Threading](https://via.placeholder.com/800x400/FF9800/white?text=Reply+Threading+Demo)
@@ -72,12 +74,6 @@
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 
 </div>
-
-<p align="center">
-  <!-- Replace with your own GIF or screenshot -->
-  <img src="https://res.cloudinary.com/ddvru0ow1/image/upload/f_auto,q_auto/Screenshot_2025-07-06_122310_tprxgh" width="600" alt="Chat Demo"/>
-  <img src="https://res.cloudinary.com/ddvru0ow1/image/upload/v1751811835/Screenshot_2025-07-06_115722_ldwvhs.png" width="600" alt="Chat Demo"/>
-</p>
 
 ---
 
