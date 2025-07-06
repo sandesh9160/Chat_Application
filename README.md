@@ -46,11 +46,10 @@
 <div align="center">
 
 ### 📱 **Main Chat Interface**
-![Chat Interface]
   <img src="https://res.cloudinary.com/ddvru0ow1/image/upload/f_auto,q_auto/Screenshot_2025-07-06_122310_tprxgh" width="600" alt="Chat Demo"/>
 
 ### 📎 **File Sharing & Preview**
-![File Preview](<img src="https://res.cloudinary.com/ddvru0ow1/image/upload/v1751811835/Screenshot_2025-07-06_115722_ldwvhs.png" width="600" alt="Chat Demo"/>
+(<img src="https://res.cloudinary.com/ddvru0ow1/image/upload/v1751811835/Screenshot_2025-07-06_115722_ldwvhs.png" width="600" alt="Chat Demo"/>
 </p>))
 
 ### 🧵 **Reply Threading**
