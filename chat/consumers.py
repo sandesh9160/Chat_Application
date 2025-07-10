@@ -33,9 +33,11 @@ class ChatConsumer(AsyncWebsocketConsumer):
             reply_to_id = data.get('reply_to_id')
             mentions = data.get('mentions', [])
             attachment_url = data.get('attachment')
+            thumbnail_url = data.get('thumbnail')  # Get thumbnail URL from frontend
             sender = self.scope['user']
 
-            message = await self.save_message(sender, content, reply_to_id, mentions, attachment_url)
+            message = await self.save_message(sender, content, reply_to_id, mentions, attachment_url, thumbnail_url)
+            print(f"SAVED MESSAGE DEBUG - ID: {message.id}, Content: {content[:30]}..., Attachment: {attachment_url}, Thumbnail: {thumbnail_url}")
 
             # Add a short delay to ensure DB commit for replied-to message
             if reply_to_id:
@@ -45,22 +47,30 @@ class ChatConsumer(AsyncWebsocketConsumer):
             reply_content = None
             reply_attachment = None
             reply_attachment_type = None
+            reply_thumbnail = None
             if reply_to_id:
-                reply_content, reply_attachment, reply_attachment_type = await self.get_reply_preview(reply_to_id)
+                reply_content, reply_attachment, reply_attachment_type, reply_thumbnail = await self.get_reply_preview(reply_to_id)
 
-            # Debug print for outgoing WebSocket message
+            
             print("WS OUT:", {
                 'id': message.id,
                 'sender': sender.username,
                 'content': content,
-                'timestamp': message.timestamp.isoformat(),
+                'timestamp': message.timestamp.strftime('%Y-%m-%dT%H:%M'),
                 'reply_to_id': reply_to_id,
                 'reply_content': reply_content,
                 'reply_attachment': reply_attachment,
                 'reply_attachment_type': reply_attachment_type,
+                'reply_thumbnail': reply_thumbnail,
                 'mentions': mentions,
                 'attachment': message.attachment.url if message.attachment else None,
+                'thumbnail': message.thumbnail.url if message.thumbnail else None,
             })
+            print("THUMBNAIL DEBUG - Message ID:", message.id)
+            print("THUMBNAIL DEBUG - message.thumbnail:", message.thumbnail)
+            print("THUMBNAIL DEBUG - message.thumbnail.url:", message.thumbnail.url if message.thumbnail else None)
+            print("THUMBNAIL DEBUG - message.attachment:", message.attachment)
+            print("THUMBNAIL DEBUG - Is PDF:", message.attachment.url.lower().endswith('.pdf') if message.attachment else False)
 
             await self.channel_layer.group_send(
                 self.room_group_name,
@@ -70,13 +80,15 @@ class ChatConsumer(AsyncWebsocketConsumer):
                         'id': message.id,
                         'sender': sender.username,
                         'content': content,
-                        'timestamp': message.timestamp.isoformat(),
+                        'timestamp': message.timestamp.strftime('%Y-%m-%dT%H:%M'),
                         'reply_to_id': reply_to_id,
                         'reply_content': reply_content,
                         'reply_attachment': reply_attachment,
                         'reply_attachment_type': reply_attachment_type,
+                        'reply_thumbnail': reply_thumbnail,
                         'mentions': mentions,
                         'attachment': message.attachment.url if message.attachment else None,
+                        'thumbnail': message.thumbnail.url if message.thumbnail else None,
                     }
                 }
             )
@@ -91,7 +103,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         }))
 
     @database_sync_to_async
-    def save_message(self, sender, content, reply_to_id, mentions, attachment_url):
+    def save_message(self, sender, content, reply_to_id, mentions, attachment_url, thumbnail_url=None):
         message = Message.objects.create(
             sender=sender,
             content=content,
@@ -100,7 +112,15 @@ class ChatConsumer(AsyncWebsocketConsumer):
         if attachment_url:
             if attachment_url.startswith(settings.MEDIA_URL):
                 attachment_url = attachment_url[len(settings.MEDIA_URL):]
+            if attachment_url.startswith('/'):
+                attachment_url = attachment_url[1:]
             message.attachment.name = attachment_url
+        if thumbnail_url:
+            if thumbnail_url.startswith(settings.MEDIA_URL):
+                thumbnail_url = thumbnail_url[len(settings.MEDIA_URL):]
+            if thumbnail_url.startswith('/'):
+                thumbnail_url = thumbnail_url[1:]
+            message.thumbnail.name = thumbnail_url
         message.save()
         for username in mentions:
             try:
@@ -116,12 +136,15 @@ class ChatConsumer(AsyncWebsocketConsumer):
             reply_msg = Message.objects.get(id=reply_to_id)
             reply_attachment = None
             reply_attachment_type = None
+            reply_thumbnail = None
             if reply_msg.attachment:
                 reply_attachment = reply_msg.attachment.url
                 if reply_msg.attachment.url.lower().endswith('.pdf'):
                     reply_attachment_type = 'pdf'
+                    reply_thumbnail = reply_msg.thumbnail.url if reply_msg.thumbnail else None
                 elif reply_msg.attachment.url.lower().endswith(('.jpg', '.jpeg', '.png')):
                     reply_attachment_type = 'image'
+                    reply_thumbnail = reply_msg.thumbnail.url if reply_msg.thumbnail else None
             # Robust reply_content logic
             if reply_msg.content.strip():
                 reply_content = reply_msg.content[:30] + ('...' if len(reply_msg.content) > 30 else '')
@@ -131,6 +154,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 reply_content = 'PDF Document'
             else:
                 reply_content = ''
-            return reply_content, reply_attachment, reply_attachment_type
+            return reply_content, reply_attachment, reply_attachment_type, reply_thumbnail
         except Message.DoesNotExist:
-            return 'Message not found', None, None
+            return 'Message not found', None, None, None
