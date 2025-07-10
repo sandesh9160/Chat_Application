@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -10,7 +10,7 @@ from django.views.decorators.http import require_POST
 from django.core.exceptions import ValidationError
 from django.contrib.auth.password_validation import validate_password
 from django.db import IntegrityError
-from .models import Message
+from .models import Message, UserProfile
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
 import os
@@ -369,3 +369,79 @@ def chat_messages_api(request):
             'mentions': [u.username for u in message.mentions.all()],
         })
     return JsonResponse({'messages': message_data[::-1]})  # oldest first
+
+@login_required
+def profile_view(request, username=None):
+    """View user profile - own profile if no username provided, or other user's profile"""
+    if username:
+        user = get_object_or_404(User, username=username)
+        # Create profile if it doesn't exist
+        profile, created = UserProfile.objects.get_or_create(user=user)
+        is_own_profile = False
+    else:
+        user = request.user
+        # Create profile if it doesn't exist
+        profile, created = UserProfile.objects.get_or_create(user=user)
+        is_own_profile = True
+    
+    context = {
+        'profile_user': user,
+        'profile': profile,
+        'is_own_profile': is_own_profile,
+    }
+    return render(request, 'profile_view.html', context)
+
+@login_required
+def profile_edit(request):
+    """Edit own profile"""
+    # Create profile if it doesn't exist
+    profile, created = UserProfile.objects.get_or_create(user=request.user)
+    
+    if request.method == 'POST':
+        
+        # Update profile fields
+        profile.bio = request.POST.get('bio', '')
+        profile.phone = request.POST.get('phone', '')
+        profile.location = request.POST.get('location', '')
+        profile.website = request.POST.get('website', '')
+        
+        # Handle date of birth
+        dob = request.POST.get('date_of_birth', '')
+        if dob:
+            try:
+                from datetime import datetime
+                profile.date_of_birth = datetime.strptime(dob, '%Y-%m-%d').date()
+            except ValueError:
+                messages.error(request, 'Invalid date format')
+                return redirect('profile_edit')
+        else:
+            profile.date_of_birth = None
+        
+        # Handle avatar upload
+        if 'avatar' in request.FILES:
+            avatar_file = request.FILES['avatar']
+            # Validate file type
+            if avatar_file.content_type not in ['image/jpeg', 'image/png', 'image/jpg']:
+                messages.error(request, 'Please upload a valid image file (JPEG, PNG)')
+                return redirect('profile_edit')
+            
+            # Validate file size (max 5MB)
+            if avatar_file.size > 5 * 1024 * 1024:
+                messages.error(request, 'Avatar file size must be less than 5MB')
+                return redirect('profile_edit')
+            
+            # Delete old avatar if exists
+            if profile.avatar:
+                try:
+                    if os.path.exists(profile.avatar.path):
+                        os.remove(profile.avatar.path)
+                except:
+                    pass
+            
+            profile.avatar = avatar_file
+        
+        profile.save()
+        messages.success(request, 'Profile updated successfully!')
+        return redirect('profile_view')
+    
+    return render(request, 'profile_edit.html', {'profile': request.user.profile})

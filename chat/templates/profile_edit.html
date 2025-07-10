@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+{% block title %}Edit Profile{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-header bg-white border-0 py-3">
+                    <div class="d-flex align-items-center">
+                        <a href="{% url 'profile_view' %}" class="btn btn-outline-secondary btn-sm me-3">
+                            <i class="bi bi-arrow-left"></i>
+                        </a>
+                        <h4 class="mb-0">
+                            <i class="bi bi-person-gear me-2 text-primary"></i>Edit Profile
+                        </h4>
+                    </div>
+                </div>
+                
+                <div class="card-body p-4">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                <i class="bi bi-{% if message.tags == 'success' %}check-circle{% else %}exclamation-triangle{% endif %} me-2"></i>
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <!-- Avatar Section -->
+                        <div class="text-center mb-4">
+                            <div class="position-relative d-inline-block">
+                                {% if profile.avatar %}
+                                    <img src="{{ profile.avatar.url }}" alt="Current Avatar" 
+                                         class="rounded-circle border-3 border-primary" 
+                                         style="width: 120px; height: 120px; object-fit: cover;">
+                                {% else %}
+                                    <div class="rounded-circle border-3 border-primary bg-light d-flex align-items-center justify-content-center" 
+                                         style="width: 120px; height: 120px;">
+                                        <i class="bi bi-person-fill text-muted" style="font-size: 3rem;"></i>
+                                    </div>
+                                {% endif %}
+                                <label for="avatar" class="position-absolute bottom-0 end-0 btn btn-primary btn-sm rounded-circle shadow-sm" 
+                                       style="cursor: pointer;">
+                                    <i class="bi bi-camera-fill"></i>
+                                </label>
+                                <input type="file" id="avatar" name="avatar" class="d-none" accept="image/*">
+                            </div>
+                            <div class="mt-2">
+                                <small class="text-muted">Click the camera icon to change your avatar</small>
+                            </div>
+                        </div>
+
+                        <!-- Bio Section -->
+                        <div class="mb-4">
+                            <label for="bio" class="form-label">
+                                <i class="bi bi-chat-quote me-2 text-primary"></i>About Me
+                            </label>
+                            <textarea class="form-control" id="bio" name="bio" rows="4" 
+                                      placeholder="Tell us about yourself...">{{ profile.bio|default:'' }}</textarea>
+                            <div class="form-text">
+                                <i class="bi bi-info-circle me-1"></i>
+                                Share a brief description about yourself (max 500 characters)
+                            </div>
+                        </div>
+
+                        <!-- Contact Information -->
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <label for="phone" class="form-label">
+                                    <i class="bi bi-telephone me-2 text-primary"></i>Phone Number
+                                </label>
+                                <input type="tel" class="form-control" id="phone" name="phone" 
+                                       value="{{ profile.phone|default:'' }}" placeholder="+1 (555) 123-4567">
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <label for="location" class="form-label">
+                                    <i class="bi bi-geo-alt me-2 text-primary"></i>Location
+                                </label>
+                                <input type="text" class="form-control" id="location" name="location" 
+                                       value="{{ profile.location|default:'' }}" placeholder="City, Country">
+                            </div>
+                        </div>
+
+                        <!-- Website and Date of Birth -->
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <label for="website" class="form-label">
+                                    <i class="bi bi-globe me-2 text-primary"></i>Website
+                                </label>
+                                <input type="url" class="form-control" id="website" name="website" 
+                                       value="{{ profile.website|default:'' }}" placeholder="https://example.com">
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <label for="date_of_birth" class="form-label">
+                                    <i class="bi bi-gift me-2 text-primary"></i>Date of Birth
+                                </label>
+                                <input type="date" class="form-control" id="date_of_birth" name="date_of_birth" 
+                                       value="{{ profile.date_of_birth|date:'Y-m-d'|default:'' }}">
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="d-flex justify-content-between align-items-center pt-3 border-top">
+                            <a href="{% url 'profile_view' %}" class="btn btn-outline-secondary">
+                                <i class="bi bi-x-circle me-2"></i>Cancel
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-check-circle me-2"></i>Save Changes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Preview avatar image before upload
+document.getElementById('avatar').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const img = document.querySelector('.position-relative img') || 
+                       document.querySelector('.position-relative .bi-person-fill').parentElement;
+            if (img.tagName === 'IMG') {
+                img.src = e.target.result;
+            } else {
+                // Replace placeholder with image
+                const newImg = document.createElement('img');
+                newImg.src = e.target.result;
+                newImg.alt = 'Avatar Preview';
+                newImg.className = 'rounded-circle border-3 border-primary';
+                newImg.style = 'width: 120px; height: 120px; object-fit: cover;';
+                img.parentElement.replaceChild(newImg, img);
+            }
+        };
+        reader.readAsDataURL(file);
+    }
+});
+</script>
+{% endblock %} 

@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% block title %}{{ profile_user.username }}'s Profile{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <!-- Profile Header Card -->
+            <div class="card shadow-lg border-0 rounded-4 mb-4">
+                <div class="card-body p-0">
+                    <!-- Cover Image Placeholder -->
+                    <div class="bg-gradient-primary text-white p-4 rounded-top-4" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                        <div class="d-flex align-items-center">
+                            <div class="position-relative me-4">
+                                {% if profile.avatar %}
+                                    <img src="{{ profile.avatar.url }}" alt="{{ profile_user.username }}" 
+                                         class="rounded-circle border-4 border-white" 
+                                         style="width: 120px; height: 120px; object-fit: cover;">
+                                {% else %}
+                                    <div class="rounded-circle border-4 border-white bg-white d-flex align-items-center justify-content-center" 
+                                         style="width: 120px; height: 120px;">
+                                        <i class="bi bi-person-fill text-muted" style="font-size: 3rem;"></i>
+                                    </div>
+                                {% endif %}
+                                {% if is_own_profile %}
+                                    <div class="position-absolute bottom-0 end-0">
+                                        <a href="{% url 'profile_edit' %}" class="btn btn-light btn-sm rounded-circle shadow-sm">
+                                            <i class="bi bi-pencil-fill text-primary"></i>
+                                        </a>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="flex-grow-1">
+                                <h2 class="mb-1">{{ profile_user.username }}</h2>
+                                <p class="mb-0 opacity-75">
+                                    <i class="bi bi-calendar3 me-2"></i>
+                                    Member since {{ profile_user.date_joined|date:"F Y" }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Profile Info -->
+                    <div class="p-4">
+                        {% if profile.bio %}
+                            <div class="mb-4">
+                                <h6 class="text-muted mb-2">
+                                    <i class="bi bi-chat-quote me-2"></i>About
+                                </h6>
+                                <p class="mb-0">{{ profile.bio }}</p>
+                            </div>
+                        {% endif %}
+                        
+                        <div class="row g-3">
+                            {% if profile.location %}
+                                <div class="col-md-6">
+                                    <div class="d-flex align-items-center text-muted">
+                                        <i class="bi bi-geo-alt-fill me-3 text-primary"></i>
+                                        <span>{{ profile.location }}</span>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            
+                            {% if profile.phone %}
+                                <div class="col-md-6">
+                                    <div class="d-flex align-items-center text-muted">
+                                        <i class="bi bi-telephone-fill me-3 text-primary"></i>
+                                        <span>{{ profile.phone }}</span>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            
+                            {% if profile.website %}
+                                <div class="col-md-6">
+                                    <div class="d-flex align-items-center text-muted">
+                                        <i class="bi bi-globe me-3 text-primary"></i>
+                                        <a href="{{ profile.website }}" target="_blank" class="text-decoration-none">{{ profile.website }}</a>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            
+                            {% if profile.date_of_birth %}
+                                <div class="col-md-6">
+                                    <div class="d-flex align-items-center text-muted">
+                                        <i class="bi bi-gift-fill me-3 text-primary"></i>
+                                        <span>{{ profile.date_of_birth|date:"F j, Y" }}</span>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- Action Buttons -->
+            {% if is_own_profile %}
+                <div class="text-center mt-4">
+                    <a href="{% url 'profile_edit' %}" class="btn btn-primary btn-lg px-4">
+                        <i class="bi bi-pencil-square me-2"></i>Edit Profile
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %} 

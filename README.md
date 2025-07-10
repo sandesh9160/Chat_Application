@@ -14,7 +14,7 @@
 
 ### 🚀 **Modern WhatsApp-style real-time chat application built with Django & Channels**
 
-*A feature-rich, production-ready chat platform with real-time messaging, file sharing, and modern UI*
+*A feature-rich, production-ready chat platform with real-time messaging, file sharing, modern UI, and a beautiful user profile system!*
 
 <br>
 
@@ -28,14 +28,14 @@
 
 <div align="center">
 
-| 🎯 **Core Features** | 🎨 **UI/UX** | 🔧 **Technical** |
-|---------------------|--------------|------------------|
-| 💬 Real-time messaging | 📱 Responsive design | 🔒 Secure authentication |
-| 📎 File attachments | 🎨 Modern UI | ⚡ WebSocket support |
-| 🧵 Reply threading | 🌙 Dark/Light themes | 🛡️ File validation |
-| 🏷️ @Mentions system | 📱 Mobile-friendly | 🔄 Auto-reconnection |
-| 🖼️ Media previews | ⚡ Fast loading | 📊 Message history |
-| 🔍 Search messages | 🎯 Intuitive UX | 🚀 Scalable architecture |
+| 🎯 **Core Features** | 🎨 **UI/UX** | 👤 **User Profile** | 🔧 **Technical** |
+|---------------------|--------------|---------------------|------------------|
+| 💬 Real-time messaging | 📱 Responsive design | 🖼️ Avatar upload & preview | 🔒 Secure authentication |
+| 📎 File attachments | 🎨 Modern UI | 📝 Bio, contact info, website | ⚡ WebSocket support |
+| 🧵 Reply threading | 🌙 Dark/Light themes | ✏️ Edit profile with validation | 🛡️ File validation |
+| 🏷️ @Mentions system | 📱 Mobile-friendly | 👀 View other users' profiles | 🔄 Auto-reconnection |
+| 🖼️ Media previews | ⚡ Fast loading | | 📊 Message history |
+| 🔍 Search messages | 🎯 Intuitive UX | | 🚀 Scalable architecture |
 
 </div>
 
@@ -44,6 +44,9 @@
 ## 🎮 **Demo & Screenshots**
 
 <div align="center">
+
+### 👤 **User Profile Page**
+<img src="https://via.placeholder.com/800x400/667eea/ffffff?text=User+Profile+Demo" width="600" alt="Profile Demo"/>
 
 ### 📱 **Main Chat Interface**
   <img src="https://res.cloudinary.com/ddvru0ow1/image/upload/f_auto,q_auto/Screenshot_2025-07-06_122310_tprxgh" width="600" alt="Chat Demo"/>
@@ -179,6 +182,15 @@ django_chat/
 - 🏷️ **@Mentions**: User mention system with autocomplete
 - 🔍 **Message Search**: Find messages quickly
 - 📱 **Responsive Design**: Works on all devices
+
+### 👤 **User Profile System**
+- 🖼️ **Profile Avatar**: Upload, preview, and update your profile picture
+- 📝 **Bio & Contact Info**: Add a bio, phone, location, website, and birthday
+- ✏️ **Edit Profile**: Modern, validated form for updating your info
+- 👀 **View Profiles**: View your own and other users' profiles
+- 🎨 **Modern UI**: Beautiful Bootstrap styling and icons
+- 🔒 **Secure**: Only you can edit your profile; others can view
+- 📱 **Responsive**: Looks great on all devices
 
 ### 🎨 **User Interface**
 - 🌙 **Modern Design**: Clean, intuitive interface
