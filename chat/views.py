@@ -27,7 +27,6 @@ from django.core.files.base import ContentFile
 from django.conf import settings
 import json
 from .models import Message, UserProfile
-from .forms import UserRegistrationForm
 import base64
 from PIL import Image
 import io
