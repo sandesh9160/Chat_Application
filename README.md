@@ -1,360 +1,137 @@
-<div align="center">
+# Django Chat Application
 
-# 💬 Django Real-Time Chat Application
+A real-time chat application built with Django, Channels, and WebSockets.
 
-[![Python](https://img.shields.io/badge/Python-3.8%2B-blue?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
-[![Django](https://img.shields.io/badge/Django-4.x-green?style=for-the-badge&logo=django&logoColor=white)](https://www.djangoproject.com/)
-[![WebSockets](https://img.shields.io/badge/WebSockets-Enabled-brightgreen?style=for-the-badge&logo=websocket&logoColor=white)](#)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
-[![Status](https://img.shields.io/badge/Status-Production%20Ready-success?style=for-the-badge)](https://github.com/yourusername/django_chat)
+## Features
 
-<br>
+- Real-time messaging using WebSockets
+- User authentication and profiles
+- File attachments (images, PDFs)
+- Message replies and mentions
+- User avatars and profiles
+- Responsive design with Bootstrap 5
 
-<img src="https://img.icons8.com/color/96/000000/weixing.png" width="120" alt="Chat App Icon"/>
+## Local Development
 
-### 🚀 **Modern WhatsApp-style real-time chat application built with Django & Channels**
+### Prerequisites
 
-*A feature-rich, production-ready chat platform with real-time messaging, file sharing, modern UI, and a beautiful user profile system!*
+- Python 3.11+
+- MySQL or SQLite database
 
-<br>
+### Installation
 
-[🌐 **Live Demo**](#) • [📖 **Documentation**](#) • [🐛 **Report Bug**](#) • [💡 **Request Feature**](#)
-
-</div>
-
----
-
-## ✨ **Key Features**
-
-<div align="center">
-
-| 🎯 **Core Features** | 🎨 **UI/UX** | 👤 **User Profile** | 🔧 **Technical** |
-|---------------------|--------------|---------------------|------------------|
-| 💬 Real-time messaging | 📱 Responsive design | 🖼️ Avatar upload & preview | 🔒 Secure authentication |
-| 📎 File attachments | 🎨 Modern UI | 📝 Bio, contact info, website | ⚡ WebSocket support |
-| 🧵 Reply threading | 🌙 Dark/Light themes | ✏️ Edit profile with validation | 🛡️ File validation |
-| 🏷️ @Mentions system | 📱 Mobile-friendly | 👀 View other users' profiles | 🔄 Auto-reconnection |
-| 🖼️ Media previews | ⚡ Fast loading | | 📊 Message history |
-| 🔍 Search messages | 🎯 Intuitive UX | | 🚀 Scalable architecture |
-
-</div>
-
----
-
-## 🎮 **Demo & Screenshots**
-
-<div align="center">
-
-### 👤 **User Profile Page**
-<img src="https://via.placeholder.com/800x400/667eea/ffffff?text=User+Profile+Demo" width="600" alt="Profile Demo"/>
-
-### 📱 **Main Chat Interface**
-  <img src="https://res.cloudinary.com/ddvru0ow1/image/upload/f_auto,q_auto/Screenshot_2025-07-06_122310_tprxgh" width="600" alt="Chat Demo"/>
-
-### 📎 **File Sharing & Preview**
-(<img src="https://res.cloudinary.com/ddvru0ow1/image/upload/v1751811835/Screenshot_2025-07-06_115722_ldwvhs.png" width="600" alt="Chat Demo"/>
-</p>))
-
-### 🧵 **Reply Threading**
-![Reply Threading](https://via.placeholder.com/800x400/FF9800/white?text=Reply+Threading+Demo)
-
-</div>
-
----
-
-## 🛠️ **Technology Stack**
-
-<div align="center">
-
-![Django](https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white)
-![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![WebSocket](https://img.shields.io/badge/WebSocket-000000?style=for-the-badge&logo=websocket&logoColor=white)
-![Bootstrap](https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white)
-![SQLite](https://img.shields.io/badge/SQLite-07405E?style=for-the-badge&logo=sqlite&logoColor=white)
-![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
-
-</div>
-
----
-
-## 🚀 **Quick Start**
-
-### 📋 **Prerequisites**
-
-- ⚡ Python 3.8 or higher
-- 📦 pip package manager
-- 🌐 Git
-- 💻 Code editor (VS Code recommended)
-
-### 🔧 **Installation**
-
-<details>
-<summary><b>📥 Step-by-step installation guide</b></summary>
-
+1. Clone the repository:
 ```bash
-# 1️⃣ Clone the repository
-git clone https://github.com/sandesh9160/Chat_Application.git
-cd django_chat
+git clone <your-repo-url>
+cd Chat_Application
+```
 
-# 2️⃣ Create virtual environment
-python -m venv venv
-
-# 3️⃣ Activate virtual environment
-# On Windows:
-venv\Scripts\activate
-# On macOS/Linux:
-source venv/bin/activate
-
-# 4️⃣ Install dependencies
+2. Install dependencies:
+```bash
 pip install -r requirements.txt
-
-# 5️⃣ Run database migrations
-python manage.py migrate
-
-# 6️⃣ Create superuser (optional)
-python manage.py createsuperuser
-
-# 7️⃣ Start the development server
-python manage.py runserver
-# OR for production-like setup:
-daphne -b 0.0.0.0 -p 8000 django_chat.asgi:application
 ```
 
-</details>
-
-### 🌐 **Access the Application**
-
-Open your browser and navigate to: **http://127.0.0.1:8000/**
-
----
-
-## 📁 **Project Structure**
-
-```
-django_chat/
-├── 📁 chat/                          # Main chat application
-│   ├── 📁 templates/                 # HTML templates
-│   │   ├── base.html                 # Base template
-│   │   ├── chat.html                 # Main chat interface
-│   │   ├── login.html                # Login page
-│   │   └── register.html             # Registration page
-│   ├── 📁 static/                    # Static files
-│   │   ├── css/                      # Stylesheets
-│   │   └── js/                       # JavaScript files
-│   ├── models.py                     # Database models
-│   ├── views.py                      # Django views
-│   ├── consumers.py                  # WebSocket consumers
-│   ├── routing.py                    # WebSocket routing
-│   └── urls.py                       # URL patterns
-├── 📁 django_chat/                   # Project settings
-│   ├── settings.py                   # Django settings
-│   ├── urls.py                       # Main URL configuration
-│   └── asgi.py                       # ASGI configuration
-├── 📁 media/                         # Uploaded files
-│   └── attachments/                  # Chat attachments
-├── 📁 static/                        # Static files root
-├── requirements.txt                  # Python dependencies
-├── manage.py                         # Django management
-└── README.md                         # This file
-```
-
----
-
-## 🎯 **Features in Detail**
-
-### 💬 **Real-Time Messaging**
-- ⚡ Instant message delivery via WebSockets
-- 🔄 Automatic reconnection on connection loss
-- 📱 Real-time typing indicators
-- 🕐 Message timestamps
-
-### 📎 **File Sharing**
-- 🖼️ **Image Support**: JPG, PNG, JPEG formats
-- 📄 **PDF Support**: Full PDF viewing and download
-- 🎯 **File Validation**: Secure file type checking
-- 📏 **Size Limits**: Configurable file size restrictions
-- 🖼️ **Thumbnails**: Auto-generated for images
-
-### 🧵 **Advanced Features**
-- 🔗 **Reply Threading**: Click to reply and scroll to original
-- 🏷️ **@Mentions**: User mention system with autocomplete
-- 🔍 **Message Search**: Find messages quickly
-- 📱 **Responsive Design**: Works on all devices
-
-### 👤 **User Profile System**
-- 🖼️ **Profile Avatar**: Upload, preview, and update your profile picture
-- 📝 **Bio & Contact Info**: Add a bio, phone, location, website, and birthday
-- ✏️ **Edit Profile**: Modern, validated form for updating your info
-- 👀 **View Profiles**: View your own and other users' profiles
-- 🎨 **Modern UI**: Beautiful Bootstrap styling and icons
-- 🔒 **Secure**: Only you can edit your profile; others can view
-- 📱 **Responsive**: Looks great on all devices
-
-### 🎨 **User Interface**
-- 🌙 **Modern Design**: Clean, intuitive interface
-- 📱 **Mobile-First**: Optimized for mobile devices
-- ⚡ **Fast Loading**: Optimized performance
-- 🎯 **User-Friendly**: Easy navigation and usage
-
----
-
-## 🔧 **Configuration**
-
-### 📝 **Environment Variables**
-
-Create a `.env` file in the root directory:
-
-```env
-DEBUG=True
-SECRET_KEY=your-secret-key-here
-ALLOWED_HOSTS=localhost,127.0.0.1
-MEDIA_URL=/media/
-STATIC_URL=/static/
-```
-
-### ⚙️ **Settings Customization**
-
-Key settings in `django_chat/settings.py`:
-
-```python
-# File upload settings
-MAX_UPLOAD_SIZE = 10 * 1024 * 1024  # 10MB
-ALLOWED_FILE_TYPES = ['jpg', 'jpeg', 'png', 'pdf']
-
-# WebSocket settings
-CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels.layers.InMemoryChannelLayer'
-    }
-}
-```
-
----
-
-## 🚀 **Deployment**
-
-### 🌐 **Production Deployment**
-
-<details>
-<summary><b>🚀 Deploy to production</b></summary>
-
+3. Run migrations:
 ```bash
-# 1. Install production dependencies
-pip install gunicorn daphne
-
-# 2. Collect static files
-python manage.py collectstatic
-
-# 3. Set environment variables
-export DEBUG=False
-export SECRET_KEY=your-production-secret-key
-
-# 4. Run with Daphne (ASGI server)
-daphne -b 0.0.0.0 -p 8000 django_chat.asgi:application
-
-# 5. Or with Gunicorn + Daphne
-gunicorn django_chat.asgi:application -w 4 -k uvicorn.workers.UvicornWorker
+python manage.py migrate
 ```
 
-</details>
-
-### 🐳 **Docker Deployment**
-
-```dockerfile
-FROM python:3.9-slim
-
-WORKDIR /app
-COPY requirements.txt .
-RUN pip install -r requirements.txt
-
-COPY . .
-RUN python manage.py collectstatic --noinput
-
-EXPOSE 8000
-CMD ["daphne", "-b", "0.0.0.0", "-p", "8000", "django_chat.asgi:application"]
+4. Create a superuser:
+```bash
+python manage.py createsuperuser
 ```
 
----
+5. Run the development server:
+```bash
+python manage.py runserver
+```
 
-## 🤝 **Contributing**
+6. Visit http://localhost:8000
 
-We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
+## Deployment on Render
 
-### 🐛 **Bug Reports**
+### Prerequisites
 
-If you find a bug, please [open an issue](https://github.com/yourusername/django_chat/issues) with:
-- 🐛 Bug description
-- 📱 Steps to reproduce
-- 💻 Environment details
-- 📸 Screenshots (if applicable)
+- Render account
+- Git repository with your code
 
-### 💡 **Feature Requests**
+### Deployment Steps
 
-Have an idea? [Request a feature](https://github.com/yourusername/django_chat/issues) and we'll consider it!
+1. **Connect your repository to Render:**
+   - Go to your Render dashboard
+   - Click "New +" and select "Web Service"
+   - Connect your Git repository
 
----
+2. **Configure the service:**
+   - **Name:** django-chat-app
+   - **Environment:** Python
+   - **Build Command:** `./build.sh`
+   - **Start Command:** `gunicorn django_chat.wsgi:application`
 
-## 📊 **Performance & Statistics**
+3. **Environment Variables:**
+   - `SECRET_KEY`: Auto-generated by Render
+   - `DEBUG`: `False`
+   - `ALLOWED_HOSTS`: `.onrender.com`
+   - `DATABASE_URL`: Auto-configured by Render
 
-<div align="center">
+4. **Database Setup:**
+   - Create a PostgreSQL database in Render
+   - The `DATABASE_URL` will be automatically configured
 
-| Metric | Value |
-|--------|-------|
-| ⚡ **Response Time** | < 100ms |
-| 📱 **Mobile Score** | 95/100 |
-| 🖥️ **Desktop Score** | 98/100 |
-| 🔒 **Security Score** | A+ |
-| 📦 **Bundle Size** | < 500KB |
+5. **Deploy:**
+   - Click "Create Web Service"
+   - Render will automatically build and deploy your application
 
-</div>
+### Files for Deployment
 
----
+The following files are configured for Render deployment:
 
-## 🏆 **Roadmap**
+- `build.sh`: Build script for installing dependencies and running migrations
+- `render.yaml`: Render configuration file
+- `Procfile`: Process file for web server
+- `runtime.txt`: Python version specification
+- `requirements.txt`: Python dependencies including production packages
 
-- [ ] 🔐 **End-to-end encryption**
-- [ ] 📞 **Voice messages**
-- [ ] 🎥 **Video calls**
-- [ ] 🌍 **Multi-language support**
-- [ ] 📊 **Message analytics**
-- [ ] 🤖 **Chat bot integration**
-- [ ] 📱 **Mobile app (React Native)**
-- [ ] ☁️ **Cloud deployment guides**
+### Production Settings
 
----
+The application automatically switches to production settings when deployed:
 
-## 🙏 **Acknowledgments**
+- Uses PostgreSQL database
+- Static files served by WhiteNoise
+- Debug mode disabled
+- Environment-based configuration
 
-- 🎨 [Bootstrap](https://getbootstrap.com/) - UI framework
-- 🔌 [Django Channels](https://channels.readthedocs.io/) - WebSocket support
-- 🐍 [Django](https://www.djangoproject.com/) - Web framework
-- 🎯 [Bootstrap Icons](https://icons.getbootstrap.com/) - Icons
-- 📱 [Font Awesome](https://fontawesome.com/) - Additional icons
+## Project Structure
 
----
+```
+Chat_Application/
+├── chat/                    # Main chat application
+│   ├── models.py           # Database models
+│   ├── views.py            # View functions
+│   ├── consumers.py        # WebSocket consumers
+│   ├── routing.py          # WebSocket routing
+│   └── templates/          # HTML templates
+├── django_chat/            # Django project settings
+│   ├── settings.py         # Django settings
+│   ├── urls.py             # URL configuration
+│   └── asgi.py             # ASGI configuration
+├── static/                 # Static files (CSS, JS)
+├── media/                  # User uploaded files
+├── requirements.txt        # Python dependencies
+├── build.sh               # Build script for deployment
+├── render.yaml            # Render configuration
+└── Procfile               # Process file for deployment
+```
 
-## 📄 **License**
+## Technologies Used
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+- **Backend:** Django 5.1.7, Django Channels
+- **Database:** PostgreSQL (production), SQLite (development)
+- **WebSockets:** Daphne
+- **Frontend:** Bootstrap 5, JavaScript
+- **File Handling:** Pillow, pdf2image
+- **Deployment:** Render, Gunicorn, WhiteNoise
 
----
+## License
 
-<div align="center">
-
-### 🌟 **Star this repository if you found it helpful!**
-
-[![GitHub stars](https://img.shields.io/github/stars/yourusername/django_chat?style=social)](https://github.com/yourusername/django_chat)
-[![GitHub forks](https://img.shields.io/github/forks/yourusername/django_chat?style=social)](https://github.com/yourusername/django_chat)
-[![GitHub issues](https://img.shields.io/github/issues/yourusername/django_chat)](https://github.com/yourusername/django_chat/issues)
-[![GitHub pull requests](https://img.shields.io/github/issues-pr/yourusername/django_chat)](https://github.com/yourusername/django_chat/pulls)
-
-<br>
-
-**Made with ❤️ and ☕ by Sandesh Kenchugundi**
-
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/sandesh-kenchugundi/)
-[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/sandesh9160)
-
-</div>
+This project is licensed under the MIT License.

@@ -12,7 +12,10 @@ let replyToId = null;
 const users = window.users || [];
 const currentUser = window.currentUser || '';
 
-const socket = new WebSocket(`ws://${window.location.host}/ws/chat/`);
+const wsScheme = window.location.protocol === "https:" ? "wss" : "ws";
+const wsUrl = `${wsScheme}://${window.location.host}/ws/chat/`;
+console.log('Attempting WebSocket connection to:', wsUrl);
+const socket = new WebSocket(wsUrl);
 
 socket.onmessage = function (e) {
     try {
@@ -38,6 +41,10 @@ socket.onmessage = function (e) {
     } catch (error) {
         console.error('Invalid WebSocket message:', error);
     }
+};
+
+socket.onopen = function () {
+    console.log('WebSocket connection established successfully');
 };
 
 socket.onclose = function () {
