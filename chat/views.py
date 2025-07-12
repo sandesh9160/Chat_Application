@@ -20,6 +20,19 @@ from pdf2image import convert_from_bytes
 from PIL import Image
 import io
 import mimetypes
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_http_methods
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
+from django.conf import settings
+import json
+from .models import Message, UserProfile
+from .forms import UserRegistrationForm
+import base64
+from PIL import Image
+import io
+import fitz  # PyMuPDF
+import tempfile
 
 def register(request):
     if request.method == 'POST':
@@ -445,3 +458,39 @@ def profile_edit(request):
         return redirect('profile_view')
     
     return render(request, 'profile_edit.html', {'profile': request.user.profile})
+
+@csrf_exempt
+@require_http_methods(["GET"])
+def serve_media_file(request, path):
+    """
+    Custom view to serve media files in production
+    """
+    try:
+        # Construct the full path to the media file
+        file_path = os.path.join(settings.MEDIA_ROOT, path)
+        
+        # Check if file exists
+        if not os.path.exists(file_path):
+            raise Http404("File not found")
+        
+        # Get file extension to determine content type
+        file_extension = os.path.splitext(path)[1].lower()
+        content_type_map = {
+            '.jpg': 'image/jpeg',
+            '.jpeg': 'image/jpeg',
+            '.png': 'image/png',
+            '.gif': 'image/gif',
+            '.pdf': 'application/pdf',
+            '.txt': 'text/plain',
+        }
+        
+        content_type = content_type_map.get(file_extension, 'application/octet-stream')
+        
+        # Read and serve the file
+        with open(file_path, 'rb') as f:
+            response = HttpResponse(f.read(), content_type=content_type)
+            response['Content-Disposition'] = f'inline; filename="{os.path.basename(path)}"'
+            return response
+            
+    except Exception as e:
+        raise Http404(f"Error serving file: {str(e)}")

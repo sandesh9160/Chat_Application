@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, re_path
 from . import views
 
 urlpatterns = [
@@ -14,4 +14,6 @@ urlpatterns = [
     path('profile/edit/', views.profile_edit, name='profile_edit'),
     path('profile/', views.profile_view, name='profile_view'),
     path('profile/<str:username>/', views.profile_view, name='profile_view_user'),
+    # Custom media serving for production
+    re_path(r'^media/(?P<path>.*)$', views.serve_media_file, name='serve_media'),
 ]
